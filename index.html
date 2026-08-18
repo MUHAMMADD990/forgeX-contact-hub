@@ -242,7 +242,7 @@
     display:flex;
     flex-direction:row;
     gap:0;
-    background:url('assets/manufacturing.jpeg') center/cover;
+    background:url('5.jpg') center/cover;
     border:1px solid rgba(200,30,42,.3);
     width:100%;
     min-height:350px;
@@ -292,6 +292,120 @@
     line-height:1.5;
     position:relative;
     z-index:2;
+  }
+
+  /* ---------- RFQ ---------- */
+  .rfq-section{
+    position:relative;
+    padding:34px 24px 44px;
+    text-align:center;
+    background:#080808;
+    border-top:1px solid rgba(200,30,42,.35);
+    background-image:repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(200,30,42,.035) 2px, rgba(200,30,42,.035) 4px);
+  }
+  .rfq-section::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:18%;
+    right:18%;
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--red), transparent);
+  }
+  .rfq-kicker{
+    color:var(--red);
+    font-family:'Oswald',sans-serif;
+    font-size:.7rem;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin:0 0 8px;
+  }
+  .rfq-section h2{
+    color:#fff;
+    font-family:'Oswald',sans-serif;
+    font-size:1.65rem;
+    letter-spacing:1px;
+    margin:0 0 8px;
+  }
+  .rfq-section p{
+    color:#bcbcbc;
+    font-size:.92rem;
+    line-height:1.6;
+    margin:0 auto 20px;
+    max-width:360px;
+  }
+  .rfq-button,
+  .rfq-submit{
+    border:1px solid var(--red);
+    border-radius:2px;
+    background:linear-gradient(135deg, var(--red), var(--red-dark));
+    color:#fff;
+    cursor:pointer;
+    font-family:'Oswald',sans-serif;
+    font-size:.9rem;
+    font-weight:600;
+    letter-spacing:1.5px;
+    padding:13px 24px;
+    box-shadow:0 4px 16px rgba(200,30,42,.22);
+    transition:background .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .rfq-button:hover,
+  .rfq-submit:hover{ background:var(--red-dark); box-shadow:0 5px 20px rgba(200,30,42,.35); }
+  .rfq-button:active,
+  .rfq-submit:active{ transform:translateY(1px); }
+  .rfq-modal{
+    width:min(92%, 480px);
+    max-height:90vh;
+    padding:0;
+    border:1px solid rgba(200,30,42,.65);
+    border-radius:2px;
+    background:#101010;
+    color:#fff;
+    box-shadow:0 18px 60px rgba(0,0,0,.75), 0 0 24px rgba(200,30,42,.12);
+  }
+  .rfq-modal::backdrop{ background:rgba(0,0,0,.82); }
+  .rfq-modal-content{ padding:25px 22px 22px; overflow-y:auto; max-height:90vh; }
+  .rfq-modal-header{ display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:18px; }
+  .rfq-modal-header h2{ font-family:'Oswald',sans-serif; font-size:1.55rem; letter-spacing:1px; margin:0 0 4px; }
+  .rfq-modal-header p{ color:#a9a9a9; font-size:.82rem; margin:0; }
+  .rfq-close{ border:0; background:transparent; color:#aaa; cursor:pointer; font-size:1.25rem; line-height:1; padding:2px 4px; }
+  .rfq-close:hover{ color:#fff; }
+  .rfq-form{ display:grid; gap:13px; text-align:right; }
+  .rfq-field{ display:grid; gap:5px; }
+  .rfq-field label{ color:#e9e9e9; font-size:.83rem; font-weight:600; }
+  .rfq-field label span{ color:var(--red); }
+  .rfq-field input,
+  .rfq-field select,
+  .rfq-field textarea{
+    width:100%;
+    border:1px solid #353535;
+    border-radius:2px;
+    background:#070707;
+    color:#fff;
+    font:inherit;
+    padding:10px 11px;
+    outline:0;
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  .rfq-field input:focus,
+  .rfq-field select:focus,
+  .rfq-field textarea:focus{ border-color:var(--red); box-shadow:0 0 0 2px rgba(200,30,42,.16); }
+  .rfq-field textarea{ min-height:92px; resize:vertical; }
+  .rfq-field input[type="file"]{ padding:8px; color:#aaa; }
+  .rfq-field input[type="file"]::file-selector-button{ border:0; border-radius:2px; background:#292929; color:#fff; cursor:pointer; margin-inline-end:8px; padding:7px 9px; }
+  .rfq-field small{ min-height:14px; color:#f07178; font-size:.72rem; }
+  .rfq-field.is-invalid input,
+  .rfq-field.is-invalid select,
+  .rfq-field.is-invalid textarea{ border-color:var(--red); }
+  .rfq-submit{ width:100%; margin-top:3px; }
+  .rfq-submit[disabled]{ cursor:wait; opacity:.7; }
+  .rfq-status{ color:#cfcfcf; font-size:.82rem; line-height:1.6; margin:3px 0 0; }
+  .rfq-status.success{ color:#e4e4e4; border-right:2px solid var(--red); padding:8px 10px; background:rgba(200,30,42,.08); }
+  .rfq-status.error{ color:#f07178; }
+
+  @media (min-width:700px){
+    .page{ max-width:760px; }
+    .rfq-section{ padding-inline:70px; }
   }
 
   .footer{
@@ -373,15 +487,6 @@
       <i class="fa-solid fa-chevron-left chev"></i>
     </a>
 
-    <a class="contact-row" href="https://maps.app.goo.gl/716JuQxZuXcVTtUq7" target="_blank" rel="noopener">
-      <span class="icon-box"><i class="fa-solid fa-location-dot"></i></span>
-      <span class="row-text">
-        <div class="row-title">موقعنا</div>
-        <div class="row-sub">Alexandria, Egypt</div>
-      </span>
-      <i class="fa-solid fa-chevron-left chev"></i>
-    </a>
-
     <a class="contact-row" href="https://maps.app.goo.gl/AQSeqpgffNd21xWK7" target="_blank" rel="noopener">
       <span class="icon-box"><i class="fa-solid fa-location-dot"></i></span>
       <span class="row-text">
@@ -391,6 +496,15 @@
       <i class="fa-solid fa-chevron-left chev"></i>
     </a>
     
+    <a class="contact-row" href="https://maps.app.goo.gl/716JuQxZuXcVTtUq7" target="_blank" rel="noopener">
+      <span class="icon-box"><i class="fa-solid fa-location-dot"></i></span>
+      <span class="row-text">
+        <div class="row-title">موقعنا</div>
+        <div class="row-sub">Alexandria, Egypt</div>
+      </span>
+      <i class="fa-solid fa-chevron-left chev"></i>
+    </a>
+
     <a class="contact-row" href="https://www.facebook.com/profile.php?id=61592212388758" target="_blank" rel="noopener">
       <span class="icon-box"><i class="fa-brands fa-facebook-f"></i></span>
       <span class="row-text">
@@ -407,7 +521,7 @@
         <div class="row-sub">linkedin.com/company/forgex</div>
       </span>
       <i class="fa-solid fa-chevron-left chev"></i>
-    </a>
+    </a> 
 
     <a class="contact-row" href="https://www.forgex.com" target="_blank" rel="noopener">
       <span class="icon-box"><i class="fa-solid fa-globe"></i></span>
@@ -426,7 +540,6 @@
     <h2>OUR <span class="hi">SERVICES</span></h2>
     <p>نجمع بين الخبرة الهندسية وأحدث تقنيات التصنيع لتقديم حلول <span class="hi">دقيقة</span>، <span class="hi">موثوقة</span>، و<span class="hi">مبتكرة</span>.</p>
 
-    
     <div class="service-grid">
   <div class="service-tile">
     <img src="./assets/7.png" alt="Service Image" style="width:100%; height:100%; object-fit:cover; display:block;">
@@ -434,11 +547,154 @@
 </div>
 </section>
 
+  <!-- REQUEST A QUOTE -->
+  <section class="rfq-section" aria-labelledby="rfq-title">
+    <p class="rfq-kicker">PROJECT INQUIRY</p>
+    <h2 id="rfq-title">REQUEST A QUOTE</h2>
+    <p>Tell us what you need, and our engineering team will get back to you.<br>اطلب عرض سعر لمشروعك الهندسي</p>
+    <button class="rfq-button" type="button" id="open-rfq">REQUEST A QUOTE</button>
+  </section>
+
+  <dialog class="rfq-modal" id="rfq-modal" aria-labelledby="rfq-modal-title">
+    <div class="rfq-modal-content">
+      <div class="rfq-modal-header">
+        <div>
+          <h2 id="rfq-modal-title">REQUEST A QUOTE</h2>
+          <p>Share the project details with our engineering team.</p>
+        </div>
+        <button class="rfq-close" type="button" id="close-rfq" aria-label="Close form">&times;</button>
+      </div>
+
+      <form class="rfq-form" id="rfq-form" novalidate>
+        <div class="rfq-field">
+          <label for="rfq-name">Full Name <span>*</span></label>
+          <input id="rfq-name" name="fullName" type="text" autocomplete="name" placeholder="Your full name" required>
+          <small></small>
+        </div>
+        <div class="rfq-field">
+          <label for="rfq-company">Company Name <span>*</span></label>
+          <input id="rfq-company" name="companyName" type="text" autocomplete="organization" placeholder="Your company name" required>
+          <small></small>
+        </div>
+        <div class="rfq-field">
+          <label for="rfq-phone">Phone / WhatsApp <span>*</span></label>
+          <input id="rfq-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+20 1XX XXX XXXX" required>
+          <small></small>
+        </div>
+        <div class="rfq-field">
+          <label for="rfq-email">Email <span>*</span></label>
+          <input id="rfq-email" name="email" type="email" autocomplete="email" placeholder="name@company.com" required>
+          <small></small>
+        </div>
+        <div class="rfq-field">
+          <label for="rfq-service">Required Service <span>*</span></label>
+          <select id="rfq-service" name="service" required>
+            <option value="">Select a service</option>
+            <option>Engineering Solutions</option>
+            <option>Manufacturing Solutions</option>
+            <option>Engineering &amp; Manufacturing Solutions</option>
+          </select>
+          <small></small>
+        </div>
+        <div class="rfq-field">
+          <label for="rfq-details">Project Details <span>*</span></label>
+          <textarea id="rfq-details" name="projectDetails" placeholder="Tell us about the scope, quantities, materials, or timeline..." required></textarea>
+          <small></small>
+        </div>
+        <div class="rfq-field">
+          <label for="rfq-file">Upload File / Drawing</label>
+          <input id="rfq-file" name="attachment" type="file" accept=".pdf,.jpg,.jpeg,.png,.dxf,.dwg,.step,.stp,.iges,.igs,.stl,.zip">
+          <small>PDF, JPG, PNG, DXF, DWG, STEP, STP, IGES, IGS, STL, ZIP</small>
+        </div>
+        <button class="rfq-submit" type="submit">SUBMIT RFQ</button>
+        <p class="rfq-status" id="rfq-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </dialog>
+
   <footer class="footer">
     <div class="line1">ENGINEERING THE <span class="hi">FUTURE</span>. BUILDING <span class="hi">POSSIBILITIES</span>.</div>
     <div class="line2">© 2026 FORGEX Engineering &amp; Manufacturing Solutions. All rights reserved.</div>
   </footer>
 
 </div>
+<script>
+  const rfqModal = document.getElementById('rfq-modal');
+  const rfqForm = document.getElementById('rfq-form');
+  const rfqStatus = document.getElementById('rfq-status');
+  const rfqSubmit = rfqForm.querySelector('.rfq-submit');
+
+  document.getElementById('open-rfq').addEventListener('click', () => {
+    rfqStatus.textContent = '';
+    rfqStatus.className = 'rfq-status';
+    rfqModal.showModal();
+  });
+
+  document.getElementById('close-rfq').addEventListener('click', () => rfqModal.close());
+
+  rfqModal.addEventListener('click', (event) => {
+    if (event.target === rfqModal) rfqModal.close();
+  });
+
+  function showFieldError(field, message) {
+    const wrapper = field.closest('.rfq-field');
+    wrapper.classList.toggle('is-invalid', Boolean(message));
+    wrapper.querySelector('small').textContent = message;
+  }
+
+  rfqForm.querySelectorAll('input, select, textarea').forEach((field) => {
+    field.addEventListener('input', () => showFieldError(field, ''));
+    field.addEventListener('change', () => showFieldError(field, ''));
+  });
+
+  rfqForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    let isValid = true;
+
+    rfqForm.querySelectorAll('[required]').forEach((field) => {
+      let message = '';
+      if (!field.value.trim()) message = 'This field is required.';
+      else if (field.type === 'email' && !field.checkValidity()) message = 'Enter a valid email address.';
+      else if (field.type === 'tel' && !/^[+0-9()\s-]{8,}$/.test(field.value.trim())) message = 'Enter a valid phone number.';
+      showFieldError(field, message);
+      if (message) isValid = false;
+    });
+
+    if (!isValid) {
+      rfqStatus.textContent = 'Please review the highlighted fields.';
+      rfqStatus.className = 'rfq-status error';
+      return;
+    }
+
+    rfqSubmit.disabled = true;
+    rfqSubmit.textContent = 'PROCESSING...';
+    rfqStatus.textContent = '';
+
+    const submission = new FormData(rfqForm);
+    submission.append('_subject', 'New FORGEX RFQ');
+    submission.append('_captcha', 'false');
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/forgex.mfg@gmail.com', {
+        method: 'POST',
+        body: submission,
+        headers: { Accept: 'application/json' }
+      });
+
+      if (!response.ok) throw new Error('RFQ submission failed');
+
+      rfqSubmit.disabled = false;
+      rfqSubmit.textContent = 'SUBMIT RFQ';
+      rfqStatus.textContent = 'Thank you for your request. Our engineering team will review your RFQ and contact you shortly.';
+      rfqStatus.className = 'rfq-status success';
+      rfqForm.reset();
+    } catch (error) {
+      rfqSubmit.disabled = false;
+      rfqSubmit.textContent = 'SUBMIT RFQ';
+      rfqStatus.textContent = 'We could not send your request right now. Please try again or contact us directly at forgex.mfg@gmail.com.';
+      rfqStatus.className = 'rfq-status error';
+    }
+  });
+</script>
 </body>
 </html>
