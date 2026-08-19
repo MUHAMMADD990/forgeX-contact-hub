@@ -242,7 +242,7 @@
     display:flex;
     flex-direction:row;
     gap:0;
-    background:url('5.jpg') center/cover;
+    background:url('./assets/7.png') center/cover;
     border:1px solid rgba(200,30,42,.3);
     width:100%;
     min-height:350px;
@@ -268,8 +268,9 @@
     border:none;
     position:relative;
     overflow:visible;
-    width:2058px;
-    height:567px;
+    width:100%;
+    min-width:0;
+    height:350px;
     z-index:2;
   }
   .service-tile::after{
@@ -292,6 +293,13 @@
     line-height:1.5;
     position:relative;
     z-index:2;
+  }
+  .service-tile img{
+    display:block;
+    width:100%;
+    height:100%;
+    max-width:100%;
+    object-fit:cover;
   }
 
   /* ---------- RFQ ---------- */
@@ -445,7 +453,7 @@
     </svg>
 
     <div class="logo-mark">
-      <img src="assets/logo.svg" alt="ForgeX Logo">
+      <img src="./assets/logo.svg" alt="ForgeX Logo">
     </div>
     <p class="subline">Engineering &amp; Manufacturing Solutions</p>
 
@@ -542,7 +550,7 @@
 
     <div class="service-grid">
   <div class="service-tile">
-    <img src="./assets/7.png" alt="Service Image" style="width:100%; height:100%; object-fit:cover; display:block;">
+    <img src="./assets/7.png" alt="Service Image">
   </div>
 </div>
 </section>
@@ -565,7 +573,9 @@
         <button class="rfq-close" type="button" id="close-rfq" aria-label="Close form">&times;</button>
       </div>
 
-      <form class="rfq-form" id="rfq-form" novalidate>
+      <form class="rfq-form" id="rfq-form" action="https://formsubmit.co/forgex.mfg@gmail.com" method="POST" enctype="multipart/form-data" target="rfq-submit-frame" novalidate>
+        <input type="hidden" name="_subject" value="New FORGEX RFQ">
+        <input type="hidden" name="_captcha" value="false">
         <div class="rfq-field">
           <label for="rfq-name">Full Name <span>*</span></label>
           <input id="rfq-name" name="fullName" type="text" autocomplete="name" placeholder="Your full name" required>
@@ -611,6 +621,7 @@
       </form>
     </div>
   </dialog>
+  <iframe name="rfq-submit-frame" id="rfq-submit-frame" title="RFQ submission" hidden></iframe>
 
   <footer class="footer">
     <div class="line1">ENGINEERING THE <span class="hi">FUTURE</span>. BUILDING <span class="hi">POSSIBILITIES</span>.</div>
@@ -670,30 +681,28 @@
     rfqSubmit.textContent = 'PROCESSING...';
     rfqStatus.textContent = '';
 
-    const submission = new FormData(rfqForm);
-    submission.append('_subject', 'New FORGEX RFQ');
-    submission.append('_captcha', 'false');
+    const attachment = document.getElementById('rfq-file').files[0];
+    if (attachment && attachment.size > 10 * 1024 * 1024) {
+      rfqSubmit.disabled = false;
+      rfqSubmit.textContent = 'SUBMIT RFQ';
+      showFieldError(document.getElementById('rfq-file'), 'File must be smaller than 10 MB.');
+      rfqStatus.textContent = 'Please choose a smaller file.';
+      rfqStatus.className = 'rfq-status error';
+      return;
+    }
 
-    try {
-      const response = await fetch('https://formsubmit.co/ajax/forgex.mfg@gmail.com', {
-        method: 'POST',
-        body: submission,
-        headers: { Accept: 'application/json' }
-      });
-
-      if (!response.ok) throw new Error('RFQ submission failed');
-
+    const submitFrame = document.getElementById('rfq-submit-frame');
+    const handleSubmission = () => {
+      submitFrame.removeEventListener('load', handleSubmission);
       rfqSubmit.disabled = false;
       rfqSubmit.textContent = 'SUBMIT RFQ';
       rfqStatus.textContent = 'Thank you for your request. Our engineering team will review your RFQ and contact you shortly.';
       rfqStatus.className = 'rfq-status success';
       rfqForm.reset();
-    } catch (error) {
-      rfqSubmit.disabled = false;
-      rfqSubmit.textContent = 'SUBMIT RFQ';
-      rfqStatus.textContent = 'We could not send your request right now. Please try again or contact us directly at forgex.mfg@gmail.com.';
-      rfqStatus.className = 'rfq-status error';
-    }
+    };
+
+    submitFrame.addEventListener('load', handleSubmission, { once: true });
+    rfqForm.submit();
   });
 </script>
 </body>
